@@ -1,0 +1,37 @@
+:root {
+  --header-bg-color: #111315;
+  --header-title: #FFFFFF;
+  --header-paragraph: #878787;
+  --header-icons: #84929D;
+  --bg-color: #23272A;
+  --title: #BBBBBB;
+  --paragraph: #86929B;
+  --icons: #84929D;
+  --button-bg: #398FF6;
+  --button-text: #BABABA;
+  --input-border: #4C6175;
+}
+
+.light-theme {
+  --header-bg-color: ;
+  --header-title: ;
+  --header-paragraph: ;
+  --header-icons: ;
+  --bg-color: ;
+  --title: ;
+  --paragraph: ;
+  --icons: ;
+  --button-bg: ;
+  --button-text: ;
+  --input-border: ;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  overflow: hidden;
+}
