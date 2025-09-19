@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Menu, Notification, Tray } from 'electron'
+import { app, BrowserWindow, ipcMain, Menu, Notification, Tray, session } from 'electron'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { centerWindow } from '../src/utils/windowUtils'
@@ -319,13 +319,19 @@ ipcMain.on('login-success', () => {
     loadingWindow = null;
   }
 
-  createDataWindow();
   createTrayIcon();
   setupTimer();
 })
 
 // Logout redirect
-ipcMain.on('logout', () => {
+ipcMain.on('logout', async () => {
+
+  const sess = dataWindow?.webContents.session || authWindow?.webContents.session || session.defaultSession;
+  if (sess) {
+    await sess.clearStorageData({ storages: ['localstorage', 'cookies', 'indexdb'] });
+    await sess.clearCache();
+    await sess.clearAuthCache();
+  }
 
   if (loadingWindow) {
     loadingWindow.close();

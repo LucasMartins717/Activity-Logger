@@ -9,7 +9,7 @@ var __privateGet = (obj, member, getter) => (__accessCheck(obj, member, "read fr
 var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
 var __privateSet = (obj, member, value, setter) => (__accessCheck(obj, member, "write to private field"), setter ? setter.call(obj, value) : member.set(obj, value), value);
 var _validator, _encryptionKey, _options, _defaultValues;
-import electron, { screen, BrowserWindow, app as app$1, ipcMain as ipcMain$1, Tray, Menu, Notification } from "electron";
+import electron, { screen, BrowserWindow, app as app$1, ipcMain as ipcMain$1, session, Tray, Menu, Notification } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import process$1 from "node:process";
@@ -15584,11 +15584,16 @@ ipcMain$1.on("login-success", () => {
     authWindow.close();
     loadingWindow = null;
   }
-  createDataWindow();
   createTrayIcon();
   setupTimer();
 });
-ipcMain$1.on("logout", () => {
+ipcMain$1.on("logout", async () => {
+  const sess = (dataWindow == null ? void 0 : dataWindow.webContents.session) || (authWindow == null ? void 0 : authWindow.webContents.session) || session.defaultSession;
+  if (sess) {
+    await sess.clearStorageData({ storages: ["localstorage", "cookies", "indexdb"] });
+    await sess.clearCache();
+    await sess.clearAuthCache();
+  }
   if (loadingWindow) {
     loadingWindow.close();
     loadingWindow = null;
