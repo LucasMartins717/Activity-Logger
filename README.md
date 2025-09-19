@@ -40,6 +40,8 @@ Tenha o [Node.js](https://nodejs.org/en/download/package-manager)🛠️ instala
 
 ### • Passos para instalação
 
+• Crie um projeto no Firebase e habilite Authentication (email/senha) e Firestore.
+
 • Clone o repositório:
 
 ```sh
@@ -58,6 +60,16 @@ cd Activity-Logger
 npm install
 ```
 
+• Crie um .env na raiz do projeto:
+
+```sh
+VITE_FIREBASE_API_KEY=seu_api_key
+VITE_FIREBASE_AUTH_DOMAIN=seu_auth_domain
+VITE_FIREBASE_PROJECT_ID=seu_project_id
+VITE_FIREBASE_STORAGE_BUCKET=seu_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=seu_messaging_sender_id
+VITE_FIREBASE_APP_ID=seu_app_id
+```
 • Inicie o aplicativo:
 
 ```sh
@@ -67,3 +79,4 @@ npm run dev
 ## Licença
 
 • Este projeto utiliza a Licença MIT. Para mais informações, consulte o arquivo [LICENSE](./LICENSE).
+
